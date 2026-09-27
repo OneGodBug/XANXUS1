@@ -27,4 +27,48 @@
     <string name="pref_advanced_telephony_manager_removable">Use TelephonyManager everywhere</string>
     <string name="pref_advanced_telephony_manager_removable_desc">By default, only OMAPI is attempted for removable eSIMs to match what is done in unprivileged mode (i.e. EasyEUICC). This may not work well on some devices. Select this option to force the use of TelephonyManager even for removable eSIMs.</string>
     <string name="pref_info_website_url" translatable="false">https://openeuicc.com</string>
+        <!-- eSIM Info -->
+    <string name="euicc_info">eSIM Info</string>
+    <string name="euicc_info_activity_title">eSIM Info (%s)</string>
+
+    <string name="euicc_info_access_mode">Access Mode</string>
+    <string name="euicc_info_removable">Removable</string>
+    <string name="euicc_info_sku">Product Name</string>
+    <string name="euicc_info_sn">Product Serial Number</string>
+    <string name="euicc_info_fw_ver">Product Firmware Version</string>
+
+    <string name="euicc_info_eid" translatable="false">EID</string>
+    <string name="euicc_info_isdr_aid" translatable="false">ISD-R AID</string>
+
+    <string name="euicc_info_sgp22_version">SGP.22 Version</string>
+    <string name="euicc_info_sas_accreditation_number">SAS Accreditation Number</string>
+    <string name="euicc_info_free_nvram">Free NVRAM (eSIM profile storage)</string>
+    <string name="euicc_info_free_nvram_hint">(for reference only)</string>
+    <string name="euicc_info_ci_type">Certificate Issuer (CI)</string>
+    <string name="euicc_info_ci_gsma_live">GSMA Live CI</string>
+    <string name="euicc_info_ci_gsma_test">GSMA Test CI</string>
+    <string name="euicc_info_ci_unknown">Unknown eSIM CI</string>
+    <string name="euicc_info_atr" translatable="false">Answer To Reset (ATR)</string>
+
+    <string name="euicc_info_yes">Yes</string>
+    <string name="euicc_info_no">No</string>
+    <string name="euicc_info_unknown">Unknown</string>
+    <string name="euicc_info_unavailable">Information Unavailable</string>
+
+    <string name="euicc_info_manufacturer">Manufacturer</string>
+    <string name="euicc_info_profile_version_supported">eUICC Profile version supported</string>
+    <string name="euicc_info_os_version">eUICC OS Version</string>
+    <string name="euicc_info_globalplatform_version">GlobalPlatform Version</string>
+    <string name="euicc_info_protected_profile_version">Protected Profile Version</string>
+
+    <string name="euicc_info_lowest_supported_version">Lowest Supported Version</string>
+    <string name="euicc_info_free_nonvolatile_memory">Free Non-volatile Memory</string>
+    <string name="euicc_info_free_volatile_memory">Free Volatile Memory</string>
+    <string name="euicc_info_default_smdp_address">Default SM-DP+ Address</string>
+    <string name="euicc_info_root_smds_address">Root SM-DS Address</string>
+    <string name="euicc_info_euicc_sign_ci">EUICC Sign CI</string>
+    <string name="euicc_info_euicc_verify_ci">EUICC Verify CI</string>
+    <string name="euicc_info_profile_version">Profile Version</string>
+    <string name="euicc_info_global_platform_version">Global Platform Version</string>
+    <string name="euicc_info_firmware_version">Firmware Version</string>
 </resources>
