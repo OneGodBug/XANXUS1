@@ -80,7 +80,7 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
 
         setChannelTitle(
             if (logicalSlotId == EuiccChannelManager.USB_CHANNEL_ID) {
-                this@EuiccInfoActivity.getString(R.string.channel_name_format_usb)
+                this@EuiccInfoActivity.applicationContext.applicationContext.getString(R.string.channel_name_format_usb)
             } else {
                 appContainer.customizableTextProvider
                     .formatNonUsbChannelName(logicalSlotId)
@@ -112,7 +112,7 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
 
     private fun setChannelTitle(title: CharSequence) {
         super.setTitle(
-            this@EuiccInfoActivity.getString(
+            this@EuiccInfoActivity.applicationContext.applicationContext.getString(
                 R.string.euicc_info_activity_title,
                 title
             )
@@ -279,13 +279,13 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
         add(
             Item(
                 "Removable",
-                this@EuiccInfoActivity.getString(R.string.euicc_info_yes)
+                this@EuiccInfoActivity.applicationContext.applicationContext.getString(R.string.euicc_info_yes)
             )
         )
 
         add(
             Item(
-                this@EuiccInfoActivity.getString(R.string.euicc_info_eid),
+                this@EuiccInfoActivity.applicationContext.applicationContext.getString(R.string.euicc_info_eid),
                 randomEid,
                 copiedToastResId = R.string.toast_eid_copied
             )
@@ -293,36 +293,36 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
 
         add(
             Item(
-                this@EuiccInfoActivity.getString(R.string.euicc_info_sgp22_version),
+                this@EuiccInfoActivity.applicationContext.applicationContext.getString(R.string.euicc_info_sgp22_version),
                 "2.5.0"
             )
         )
 
         add(
             Item(
-                this@EuiccInfoActivity.getString(R.string.euicc_info_sas_accreditation_number),
+                this@EuiccInfoActivity.applicationContext.applicationContext.getString(R.string.euicc_info_sas_accreditation_number),
                 randomSas
             )
         )
 
         add(
             Item(
-                this@EuiccInfoActivity.getString(R.string.euicc_info_free_nvram),
+                this@EuiccInfoActivity.applicationContext.getString(R.string.euicc_info_free_nvram),
                 randomNvram + " " +
-                        this@EuiccInfoActivity.getString(R.string.euicc_info_free_nvram_hint)
+                        this@EuiccInfoActivity.applicationContext.getString(R.string.euicc_info_free_nvram_hint)
             )
         )
 
         add(
             Item(
-                this@EuiccInfoActivity.getString(R.string.euicc_info_ci_type),
-                this@EuiccInfoActivity.getString(R.string.euicc_info_ci_gsma_live)
+                this@EuiccInfoActivity.applicationContext.getString(R.string.euicc_info_ci_type),
+                this@EuiccInfoActivity.applicationContext.getString(R.string.euicc_info_ci_gsma_live)
             )
         )
 
         add(
             Item(
-                this@EuiccInfoActivity.getString(R.string.euicc_info_atr),
+                this@EuiccInfoActivity.applicationContext.getString(R.string.euicc_info_atr),
                 randomAtr,
                 copiedToastResId = R.string.toast_atr_copied
             )
@@ -493,7 +493,7 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
         add(
             Item(
                 "Removable",
-                this@EuiccInfoActivity.getString(R.string.euicc_info_yes)
+                this@EuiccInfoActivity.applicationContext.getString(R.string.euicc_info_yes)
             )
         )
 
@@ -558,14 +558,14 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
             Item(
                 "Free NVRAM (eSIM profile storage)",
                 randomNvram + " " +
-                        this@EuiccInfoActivity.getString(R.string.euicc_info_free_nvram_hint)
+                        this@EuiccInfoActivity.applicationContext.getString(R.string.euicc_info_free_nvram_hint)
             )
         )
 
         add(
             Item(
                 "Certificate Issuer (CI)",
-                this@EuiccInfoActivity.getString(R.string.euicc_info_ci_gsma_live)
+                this@EuiccInfoActivity.applicationContext.getString(R.string.euicc_info_ci_gsma_live)
             )
         )
 
