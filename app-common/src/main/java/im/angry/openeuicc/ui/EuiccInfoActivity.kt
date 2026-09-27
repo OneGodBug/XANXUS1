@@ -263,15 +263,15 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
      * =========================================================
      */
     private fun buildDemoEuiccInfoItemsType1(): List<Item> {
-    val yesText = getString(R.string.euicc_info_yes)
-    val eidTitle = getString(R.string.euicc_info_eid)
-    val sgp22Title = getString(R.string.euicc_info_sgp22_version)
-    val sasTitle = getString(R.string.euicc_info_sas_accreditation_number)
-    val nvramTitle = getString(R.string.euicc_info_free_nvram)
-    val nvramHint = getString(R.string.euicc_info_free_nvram_hint)
-    val ciTitle = getString(R.string.euicc_info_ci_type)
-    val ciValue = getString(R.string.euicc_info_ci_gsma_live)
-    val atrTitle = getString(R.string.euicc_info_atr)
+    val yesText = "Yes"
+    val eidTitle = "EID"
+    val sgp22Title = "SGP.22 Version"
+    val sasTitle = "SAS Accreditation Number"
+    val nvramTitle = "Free NVRAM"
+    val nvramHint = "(for reference only)"
+    val ciTitle = "Certificate Issuer (CI)"
+    val ciValue = "GSMA Live CI"
+    val atrTitle = "ATR"
 
     val randomEid = generateRandomEid()
     val randomSas = generateRandomSas()
