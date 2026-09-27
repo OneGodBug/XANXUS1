@@ -257,25 +257,16 @@ class EuiccInfoActivity : AppCompatActivity() {
     private fun buildDemoEuiccInfoItemsType2(): List<Item> {
     val eidTitle = getString(R.string.euicc_info_eid)
     val sasTitle = getString(R.string.euicc_info_sas_accreditation_number)
-    val lowestVersionTitle = "【最低対応バージョン测试】"
-    val freeNonVolatileTitle =
-        getString(R.string.euicc_info_free_nonvolatile_memory)
-    val freeVolatileTitle =
-        getString(R.string.euicc_info_free_volatile_memory)
-    val defaultSmdpTitle =
-        getString(R.string.euicc_info_default_smdp_address)
-    val rootSmdsTitle =
-        getString(R.string.euicc_info_root_smds_address)
-    val signCiTitle =
-        getString(R.string.euicc_info_euicc_sign_ci)
-    val verifyCiTitle =
-        getString(R.string.euicc_info_euicc_verify_ci)
-    val profileVersionTitle =
-        getString(R.string.euicc_info_profile_version)
-    val globalPlatformTitle =
-        getString(R.string.euicc_info_global_platform_version)
-    val firmwareTitle =
-        getString(R.string.euicc_info_firmware_version)
+    val lowestVersionTitle = getString(R.string.euicc_info_lowest_supported_version)
+    val freeNonVolatileTitle = getString(R.string.euicc_info_free_nonvolatile_memory)
+    val freeVolatileTitle = getString(R.string.euicc_info_free_volatile_memory)
+    val defaultSmdpTitle = getString(R.string.euicc_info_default_smdp_address)
+    val rootSmdsTitle = getString(R.string.euicc_info_root_smds_address)
+    val signCiTitle = getString(R.string.euicc_info_euicc_sign_ci)
+    val verifyCiTitle = getString(R.string.euicc_info_euicc_verify_ci)
+    val profileVersionTitle = getString(R.string.euicc_info_profile_version)
+    val globalPlatformTitle = getString(R.string.euicc_info_global_platform_version)
+    val firmwareTitle = getString(R.string.euicc_info_firmware_version)
 
     val randomEid = generateRandomEid()
     val randomSas = generateRandomSas()
