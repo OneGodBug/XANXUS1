@@ -39,6 +39,13 @@ class EuiccInfoActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        supportActionBar?.title = localized(
+        "eSIM Info",
+        "eSIM 详情",
+        "eSIM 詳情",
+        "eSIM 情報"
+)
+
         swipeRefresh = findViewById(R.id.swipe_refresh)
 
         infoList = findViewById<RecyclerView>(R.id.recycler_view).also {
