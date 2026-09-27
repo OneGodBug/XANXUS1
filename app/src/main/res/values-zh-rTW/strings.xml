@@ -19,4 +19,28 @@
     <string name="channel_type_telephony_manager">TelephonyManager (特權)</string>
     <string name="pref_advanced_telephony_manager_removable">全域使用 TelephonyManager</string>
     <string name="pref_advanced_telephony_manager_removable_desc">在預設情況下，可移除 eSIM 將僅使用 OMAPI。這與非特權模式 (EasyEUICC) 一致。在某些裝置上 OMAPI 可能有問題 — 選擇此選項以強制使用 TelephonyManager。</string>
+        <!-- eSIM Info -->
+    <string name="euicc_info_access_mode">存取模式</string>
+    <string name="euicc_info_removable">可移除</string>
+    <string name="euicc_info_sgp22_version">SGP.22 版本</string>
+    <string name="euicc_info_manufacturer">製造商</string>
+    <string name="euicc_info_profile_version_supported">支援的 eUICC 設定檔版本</string>
+    <string name="euicc_info_os_version">eUICC OS 版本</string>
+    <string name="euicc_info_globalplatform_version">GlobalPlatform 版本</string>
+    <string name="euicc_info_protected_profile_version">受保護設定檔版本</string>
+
+    <string name="euicc_info_lowest_supported_version">最低支援版本</string>
+    <string name="euicc_info_free_nonvolatile_memory">可用非揮發性記憶體</string>
+    <string name="euicc_info_free_volatile_memory">可用揮發性記憶體</string>
+    <string name="euicc_info_default_smdp_address">預設 SM-DP+ 位址</string>
+    <string name="euicc_info_root_smds_address">根 SM-DS 位址</string>
+    <string name="euicc_info_euicc_sign_ci">eUICC 簽章 CI</string>
+    <string name="euicc_info_euicc_verify_ci">eUICC 驗證 CI</string>
+    <string name="euicc_info_profile_version">設定檔版本</string>
+    <string name="euicc_info_global_platform_version">Global Platform 版本</string>
+    <string name="euicc_info_firmware_version">韌體版本</string>
+
+    <string name="euicc_info_yes">是</string>
+    <string name="euicc_info_free_nvram_hint">（僅供參考）</string>
+    
 </resources>
