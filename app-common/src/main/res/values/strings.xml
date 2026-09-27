@@ -165,6 +165,29 @@
     <string name="euicc_info_activity_title">eSIM Info (%s)</string>
     <string name="euicc_info_access_mode">Access Mode</string>
     <string name="euicc_info_removable">Removable</string>
+
+    <string name="euicc_info">eSIM Info</string>
+<string name="euicc_info_activity_title">eSIM Info (%s)</string>
+<string name="euicc_info_access_mode">Access Mode</string>
+<string name="euicc_info_removable">Removable</string>
+
+<string name="euicc_info_manufacturer">Manufacturer</string>
+<string name="euicc_info_profile_version_supported">eUICC Profile version supported</string>
+<string name="euicc_info_os_version">eUICC OS Version</string>
+<string name="euicc_info_globalplatform_version">GlobalPlatform Version</string>
+<string name="euicc_info_protected_profile_version">Protected Profile Version</string>
+
+<string name="euicc_info_lowest_supported_version">Lowest Supported Version</string>
+<string name="euicc_info_free_nonvolatile_memory">Free Non-volatile Memory</string>
+<string name="euicc_info_free_volatile_memory">Free Volatile Memory</string>
+<string name="euicc_info_default_smdp_address">Default SM-DP+ Address</string>
+<string name="euicc_info_root_smds_address">Root SM-DS Address</string>
+<string name="euicc_info_euicc_sign_ci">EUICC Sign CI</string>
+<string name="euicc_info_euicc_verify_ci">EUICC Verify CI</string>
+<string name="euicc_info_profile_version">Profile Version</string>
+<string name="euicc_info_global_platform_version">Global Platform Version</string>
+<string name="euicc_info_firmware_version">Firmware Version</string>
+    
     <string name="euicc_info_sku">Product Name</string>
     <string name="euicc_info_sn">Product Serial Number</string>
     <string name="euicc_info_fw_ver">Product Firmware Version</string>
