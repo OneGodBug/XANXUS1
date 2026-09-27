@@ -187,55 +187,67 @@ class EuiccInfoActivity : AppCompatActivity() {
      * =========================================================
      */
     private fun buildDemoEuiccInfoItemsType1(): List<Item> {
-        val randomEid = generateRandomEid()
-        val randomSas = generateRandomSas()
-        val randomNvram = generateRandomNvram()
-        val randomAtr = generateRandomAtr()
+    val yesText = getString(R.string.euicc_info_yes)
+    val accessModeTitle = getString(R.string.euicc_info_access_mode)
+    val removableTitle = getString(R.string.euicc_info_removable)
+    val eidTitle = getString(R.string.euicc_info_eid)
+    val sgp22Title = getString(R.string.euicc_info_sgp22_version)
+    val sasTitle = getString(R.string.euicc_info_sas_accreditation_number)
+    val nvramTitle = getString(R.string.euicc_info_free_nvram)
+    val nvramHint = getString(R.string.euicc_info_free_nvram_hint)
+    val ciTitle = getString(R.string.euicc_info_ci_type)
+    val ciValue = getString(R.string.euicc_info_ci_gsma_live)
+    val atrTitle = getString(R.string.euicc_info_atr)
 
-        return listOf(
-            Item(
-                "Access Mode",
-                "OpenMobile API (OMAPI)"
-            ),
+    val randomEid = generateRandomEid()
+    val randomSas = generateRandomSas()
+    val randomNvram = generateRandomNvram()
+    val randomAtr = generateRandomAtr()
 
-            Item(
-                "Removable",
-                "Yes"
-            ),
+    return listOf(
+        Item(
+            accessModeTitle,
+            "OpenMobile API (OMAPI)"
+        ),
 
-            Item(
-                "EID",
-                randomEid,
-                R.string.toast_eid_copied
-            ),
+        Item(
+            removableTitle,
+            yesText
+        ),
 
-            Item(
-                "SGP.22 Version",
-                "2.5.0"
-            ),
+        Item(
+            eidTitle,
+            randomEid,
+            R.string.toast_eid_copied
+        ),
 
-            Item(
-                "SAS Accreditation Number",
-                randomSas
-            ),
+        Item(
+            sgp22Title,
+            "2.5.0"
+        ),
 
-            Item(
-                "Free NVRAM",
-                "$randomNvram (for reference only)"
-            ),
+        Item(
+            sasTitle,
+            randomSas
+        ),
 
-            Item(
-                "Certificate Issuer (CI)",
-                "GSMA Live CI"
-            ),
+        Item(
+            nvramTitle,
+            "$randomNvram $nvramHint"
+        ),
 
-            Item(
-                "ATR",
-                randomAtr,
-                R.string.toast_atr_copied
-            )
+        Item(
+            ciTitle,
+            ciValue
+        ),
+
+        Item(
+            atrTitle,
+            randomAtr,
+            R.string.toast_atr_copied
         )
-    }
+    )
+}
 
     /**
      * =========================================================
@@ -327,80 +339,91 @@ class EuiccInfoActivity : AppCompatActivity() {
      * 随机项目全部使用第一套规则。
      */
     private fun buildDemoEuiccInfoItemsType3(): List<Item> {
-        val randomEid = generateRandomEid()
-        val randomSas = generateRandomSas()
-        val randomNvram = generateRandomNvram()
-        val randomAtr = generateRandomAtr()
+    val yesText = getString(R.string.euicc_info_yes)
+    val accessModeTitle = getString(R.string.euicc_info_access_mode)
+    val removableTitle = getString(R.string.euicc_info_removable)
+    val eidTitle = getString(R.string.euicc_info_eid)
+    val sgp22Title = getString(R.string.euicc_info_sgp22_version)
+    val sasTitle = getString(R.string.euicc_info_sas_accreditation_number)
+    val nvramHint = getString(R.string.euicc_info_free_nvram_hint)
+    val ciTitle = getString(R.string.euicc_info_ci_type)
+    val ciValue = getString(R.string.euicc_info_ci_gsma_live)
+    val atrTitle = getString(R.string.euicc_info_atr)
 
-        return listOf(
-            Item(
-                "Access Mode",
-                "OpenMobile API (OMAPI)"
-            ),
+    val randomEid = generateRandomEid()
+    val randomSas = generateRandomSas()
+    val randomNvram = generateRandomNvram()
+    val randomAtr = generateRandomAtr()
 
-            Item(
-                "Removable",
-                "Yes"
-            ),
+    return listOf(
+        Item(
+            accessModeTitle,
+            "OpenMobile API (OMAPI)"
+        ),
 
-            Item(
-                "EID",
-                randomEid,
-                R.string.toast_eid_copied
-            ),
+        Item(
+            removableTitle,
+            yesText
+        ),
 
-            Item(
-                "Manufacturer",
-                "Beijing Watchdata(CN)"
-            ),
+        Item(
+            eidTitle,
+            randomEid,
+            R.string.toast_eid_copied
+        ),
 
-            Item(
-                "eUICC Profile version supported",
-                "2.2.0"
-            ),
+        Item(
+            "Manufacturer",
+            "Beijing Watchdata(CN)"
+        ),
 
-            Item(
-                "SGP.22 Version",
-                "2.5.0"
-            ),
+        Item(
+            "eUICC Profile version supported",
+            "2.2.0"
+        ),
 
-            Item(
-                "eUICC OS Version",
-                "25.4.0"
-            ),
+        Item(
+            sgp22Title,
+            "2.5.0"
+        ),
 
-            Item(
-                "GlobalPlatform Version",
-                "2.3.0"
-            ),
+        Item(
+            "eUICC OS Version",
+            "25.4.0"
+        ),
 
-            Item(
-                "Protected Profile Version",
-                "1.0.0"
-            ),
+        Item(
+            "GlobalPlatform Version",
+            "2.3.0"
+        ),
 
-            Item(
-                "SAS Accreditation Number",
-                randomSas
-            ),
+        Item(
+            "Protected Profile Version",
+            "1.0.0"
+        ),
 
-            Item(
-                "Free NVRAM (eSIM profile storage)",
-                "$randomNvram (for reference only)"
-            ),
+        Item(
+            sasTitle,
+            randomSas
+        ),
 
-            Item(
-                "Certificate Issuer (CI)",
-                "GSMA Live CI"
-            ),
+        Item(
+            "Free NVRAM (eSIM profile storage)",
+            "$randomNvram $nvramHint"
+        ),
 
-            Item(
-                "Answer To Reset (ATR)",
-                randomAtr,
-                R.string.toast_atr_copied
-            )
+        Item(
+            ciTitle,
+            ciValue
+        ),
+
+        Item(
+            atrTitle,
+            randomAtr,
+            R.string.toast_atr_copied
         )
-    }
+    )
+}
 
     inner class EuiccInfoViewHolder(
         root: View
