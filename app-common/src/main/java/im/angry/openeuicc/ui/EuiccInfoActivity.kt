@@ -631,9 +631,7 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
         title.text = item.title
 
         content.text =
-            item.content
-                ?: this@EuiccInfoActivity.getString(
-                    R.string.euicc_info_unknown
+            item.content ?: "Unknown"
                 )
     }
 }
