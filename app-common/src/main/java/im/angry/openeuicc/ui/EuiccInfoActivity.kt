@@ -31,7 +31,7 @@ class EuiccInfoActivity : AppCompatActivity() {
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()
+        
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_euicc_info)
