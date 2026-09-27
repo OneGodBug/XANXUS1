@@ -586,53 +586,57 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
 
     inner class EuiccInfoViewHolder(root: View) : ViewHolder(root) {
 
-        private val title: TextView =
-            root.requireViewById(R.id.euicc_info_title)
+    private val title: TextView =
+        root.requireViewById(R.id.euicc_info_title)
 
-        private val content: TextView =
-            root.requireViewById(R.id.euicc_info_content)
+    private val content: TextView =
+        root.requireViewById(R.id.euicc_info_content)
 
-        private var copiedToastResId: Int? = null
+    private var copiedToastResId: Int? = null
 
-        init {
-            root.setOnClickListener {
+    init {
+        root.setOnClickListener {
 
-                if (copiedToastResId != null) {
+            if (copiedToastResId != null) {
 
-                    val label = title.text.toString()
+                val label = title.text.toString()
 
-                    getSystemService(
+                val clipboard =
+                    this@EuiccInfoActivity.getSystemService(
                         ClipboardManager::class.java
-                    )!!
-                        .setPrimaryClip(
-                            ClipData.newPlainText(
-                                label,
-                                content.text
-                            )
-                        )
+                    )
 
-                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-                        Toast.makeText(
-                            this@EuiccInfoActivity,
-                            copiedToastResId!!,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                clipboard?.setPrimaryClip(
+                    ClipData.newPlainText(
+                        label,
+                        content.text
+                    )
+                )
+
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+                    Toast.makeText(
+                        this@EuiccInfoActivity,
+                        copiedToastResId!!,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
-
-        fun bind(item: Item) {
-
-            copiedToastResId = item.copiedToastResId
-
-            title.text = item.title
-
-            content.text =
-                item.content
-                    ?: getString(R.string.euicc_info_unknown)
-        }
     }
+
+    fun bind(item: Item) {
+
+        copiedToastResId = item.copiedToastResId
+
+        title.text = item.title
+
+        content.text =
+            item.content
+                ?: this@EuiccInfoActivity.getString(
+                    R.string.euicc_info_unknown
+                )
+    }
+}
 
     inner class EuiccInfoAdapter :
         RecyclerView.Adapter<EuiccInfoViewHolder>() {
