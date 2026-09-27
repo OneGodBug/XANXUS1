@@ -42,5 +42,11 @@
     <string name="euicc_info_access_mode">アクセスモード</string>
     <string name="euicc_info_removable">取り外し可能</string>
     <string name="euicc_info_sgp22_version">SGP.22 バージョン</string>
-    
+
+    <string name="euicc_info_sas_accreditation_number">SAS 認定番号</string>
+<string name="euicc_info_free_nvram">空き NVRAM（eSIM プロファイル保存領域）</string>
+<string name="euicc_info_ci_type">証明書発行者（CI）</string>
+<string name="euicc_info_ci_gsma_live">GSMA Live CI</string>
+<string name="euicc_info_yes">はい</string>
+<string name="euicc_info_free_nvram_hint">（参考値）</string>
 </resources>
