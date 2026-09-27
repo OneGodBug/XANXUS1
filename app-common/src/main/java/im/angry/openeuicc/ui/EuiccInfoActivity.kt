@@ -89,25 +89,40 @@ class EuiccInfoActivity : AppCompatActivity() {
         swipeRefresh.isRefreshing = false
     }
 
-    /**
-     * =========================================================
-     * 随机 EID
-     * =========================================================
+    /*
+     * 根据当前 App 语言返回对应文字。
      *
-     * 前 8 位：
-     * 第 1 位 3~9
-     * 后 7 位 0~9
-     *
-     * 中间固定：
-     * 20250000012500000
-     *
-     * 最后 7 位：
-     * 0~9
+     * 支持：
+     * English
+     * 简体中文
+     * 繁體中文
+     * 日本語
      */
+    private fun localized(
+        english: String,
+        simplifiedChinese: String,
+        traditionalChinese: String,
+        japanese: String
+    ): String {
+        val locale = resources.configuration.locales[0]
+
+        return when (locale.language.lowercase()) {
+            "ja" -> japanese
+
+            "zh" -> {
+                when (locale.country.uppercase()) {
+                    "TW", "HK", "MO" -> traditionalChinese
+                    else -> simplifiedChinese
+                }
+            }
+
+            else -> english
+        }
+    }
+
     private fun generateRandomEid(): String {
         val prefix = buildString {
             append(Random.nextInt(3, 10))
-
             repeat(7) {
                 append(Random.nextInt(0, 10))
             }
@@ -124,11 +139,6 @@ class EuiccInfoActivity : AppCompatActivity() {
         return prefix + middle + suffix
     }
 
-    /**
-     * =========================================================
-     * 随机 SAS
-     * =========================================================
-     */
     private fun generateRandomSas(): String {
         return buildString {
             append("WD-BG-UP-")
@@ -139,23 +149,15 @@ class EuiccInfoActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * =========================================================
-     * 随机 NVRAM
-     * 0.01 ~ 499.99 KiB
-     * =========================================================
-     */
     private fun generateRandomNvram(): String {
         val value = Random.nextInt(1, 50_000) / 100.0
-        return String.format("%.2f KiB", value)
+
+        return String.format(
+            "%.2f KiB",
+            value
+        )
     }
 
-    /**
-     * =========================================================
-     * 随机 ATR
-     * 44 个大写十六进制字符
-     * =========================================================
-     */
     private fun generateRandomAtr(): String {
         val hex = "0123456789ABCDEF"
 
@@ -166,11 +168,6 @@ class EuiccInfoActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * =========================================================
-     * 随机 16 位 CI
-     * =========================================================
-     */
     private fun generateRandomCi(): String {
         val hex = "0123456789ABCDEF"
 
@@ -181,265 +178,498 @@ class EuiccInfoActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * =========================================================
-     * 第一套
-     * =========================================================
+    /*
+     * ============================
+     * Set 1
+     * ============================
      */
     private fun buildDemoEuiccInfoItemsType1(): List<Item> {
-    val yesText = getString(R.string.euicc_info_yes)
-    val accessModeTitle = getString(R.string.euicc_info_access_mode)
-    val removableTitle = getString(R.string.euicc_info_removable)
-    val eidTitle = getString(R.string.euicc_info_eid)
-    val sgp22Title = getString(R.string.euicc_info_sgp22_version)
-    val sasTitle = getString(R.string.euicc_info_sas_accreditation_number)
-    val nvramTitle = getString(R.string.euicc_info_free_nvram)
-    val nvramHint = getString(R.string.euicc_info_free_nvram_hint)
-    val ciTitle = getString(R.string.euicc_info_ci_type)
-    val ciValue = getString(R.string.euicc_info_ci_gsma_live)
-    val atrTitle = getString(R.string.euicc_info_atr)
 
-    val randomEid = generateRandomEid()
-    val randomSas = generateRandomSas()
-    val randomNvram = generateRandomNvram()
-    val randomAtr = generateRandomAtr()
+        val randomEid = generateRandomEid()
+        val randomSas = generateRandomSas()
+        val randomNvram = generateRandomNvram()
+        val randomAtr = generateRandomAtr()
 
-    return listOf(
-        Item(
-            accessModeTitle,
-            "OpenMobile API (OMAPI)"
-        ),
-
-        Item(
-            removableTitle,
-            yesText
-        ),
-
-        Item(
-            eidTitle,
-            randomEid,
-            R.string.toast_eid_copied
-        ),
-
-        Item(
-            sgp22Title,
-            "2.5.0"
-        ),
-
-        Item(
-            sasTitle,
-            randomSas
-        ),
-
-        Item(
-            nvramTitle,
-            "$randomNvram $nvramHint"
-        ),
-
-        Item(
-            ciTitle,
-            ciValue
-        ),
-
-        Item(
-            atrTitle,
-            randomAtr,
-            R.string.toast_atr_copied
+        val accessModeTitle = localized(
+            "Access Mode",
+            "访问模式",
+            "存取模式",
+            "アクセスモード"
         )
-    )
-}
 
-    /**
-     * =========================================================
-     * 第二套
-     * =========================================================
+        val removableTitle = localized(
+            "Removable",
+            "可移除",
+            "可移除",
+            "取り外し可能"
+        )
+
+        val eidTitle = localized(
+            "EID",
+            "EID",
+            "EID",
+            "EID"
+        )
+
+        val sgp22Title = localized(
+            "SGP.22 Version",
+            "SGP.22 版本",
+            "SGP.22 版本",
+            "SGP.22 バージョン"
+        )
+
+        val sasTitle = localized(
+            "SAS Accreditation Number",
+            "SAS 认证编号",
+            "SAS 認證編號",
+            "SAS 認定番号"
+        )
+
+        val nvramTitle = localized(
+            "Free NVRAM (eSIM profile storage)",
+            "可用 NVRAM（eSIM 配置文件存储空间）",
+            "可用 NVRAM（eSIM 設定檔儲存空間）",
+            "空き NVRAM（eSIM プロファイル保存領域）"
+        )
+
+        val nvramHint = localized(
+            "(for reference only)",
+            "（仅供参考）",
+            "（僅供參考）",
+            "（参考値）"
+        )
+
+        val ciTitle = localized(
+            "Certificate Issuer (CI)",
+            "证书颁发者（CI）",
+            "憑證發行者（CI）",
+            "証明書発行者（CI）"
+        )
+
+        val ciValue = "GSMA Live CI"
+
+        val atrTitle = localized(
+            "Answer To Reset (ATR)",
+            "复位应答（ATR）",
+            "重置應答（ATR）",
+            "Answer To Reset (ATR)"
+        )
+
+        return listOf(
+            Item(
+                accessModeTitle,
+                "OpenMobile API (OMAPI)"
+            ),
+
+            Item(
+                removableTitle,
+                localized(
+                    "Yes",
+                    "是",
+                    "是",
+                    "はい"
+                )
+            ),
+
+            Item(
+                eidTitle,
+                randomEid,
+                R.string.toast_eid_copied
+            ),
+
+            Item(
+                sgp22Title,
+                "2.5.0"
+            ),
+
+            Item(
+                sasTitle,
+                randomSas
+            ),
+
+            Item(
+                nvramTitle,
+                "$randomNvram $nvramHint"
+            ),
+
+            Item(
+                ciTitle,
+                ciValue
+            ),
+
+            Item(
+                atrTitle,
+                randomAtr,
+                R.string.toast_atr_copied
+            )
+        )
+    }
+
+    /*
+     * ============================
+     * Set 2
+     * ============================
      */
     private fun buildDemoEuiccInfoItemsType2(): List<Item> {
-    val eidTitle = getString(R.string.euicc_info_eid)
-    val sasTitle = getString(R.string.euicc_info_sas_accreditation_number)
-    val lowestVersionTitle = getString(R.string.euicc_info_lowest_supported_version)
-    val freeNonVolatileTitle = getString(R.string.euicc_info_free_nonvolatile_memory)
-    val freeVolatileTitle = getString(R.string.euicc_info_free_volatile_memory)
-    val defaultSmdpTitle = getString(R.string.euicc_info_default_smdp_address)
-    val rootSmdsTitle = getString(R.string.euicc_info_root_smds_address)
-    val signCiTitle = getString(R.string.euicc_info_euicc_sign_ci)
-    val verifyCiTitle = getString(R.string.euicc_info_euicc_verify_ci)
-    val profileVersionTitle = getString(R.string.euicc_info_profile_version)
-    val globalPlatformTitle = getString(R.string.euicc_info_global_platform_version)
-    val firmwareTitle = getString(R.string.euicc_info_firmware_version)
 
-    val randomEid = generateRandomEid()
-    val randomSas = generateRandomSas()
+        val randomEid = generateRandomEid()
+        val randomSas = generateRandomSas()
 
-    val randomFreeNonVolatileMemory =
-        Random.nextInt(200_000, 400_001)
+        val randomFreeNonVolatileMemory =
+            Random.nextInt(200_000, 400_001)
 
-    val randomFreeVolatileMemory =
-        Random.nextInt(9_000, 11_001)
+        val randomFreeVolatileMemory =
+            Random.nextInt(9_000, 11_001)
 
-    val randomCi = generateRandomCi()
+        /*
+         * 同一次刷新中：
+         * EUICC Sign CI
+         * EUICC Verify CI
+         *
+         * 使用完全相同的随机值。
+         */
+        val randomCi = generateRandomCi()
 
-    return listOf(
-        Item(
-            eidTitle,
-            randomEid,
-            R.string.toast_eid_copied
-        ),
-
-        Item(
-            sasTitle,
-            randomSas
-        ),
-
-        Item(
-            lowestVersionTitle,
-            "2.5.0"
-        ),
-
-        Item(
-            freeNonVolatileTitle,
-            "${String.format("%,d", randomFreeNonVolatileMemory)} B"
-        ),
-
-        Item(
-            freeVolatileTitle,
-            "${String.format("%,d", randomFreeVolatileMemory)} B"
-        ),
-
-        Item(
-            defaultSmdpTitle,
-            ""
-        ),
-
-        Item(
-            rootSmdsTitle,
-            "testrootsmds.gsma.com"
-        ),
-
-        Item(
-            signCiTitle,
-            randomCi
-        ),
-
-        Item(
-            verifyCiTitle,
-            randomCi
-        ),
-
-        Item(
-            profileVersionTitle,
-            "2.2.0"
-        ),
-
-        Item(
-            globalPlatformTitle,
-            "2.3.0"
-        ),
-
-        Item(
-            firmwareTitle,
-            "25.4.0"
+        val eidTitle = localized(
+            "EID",
+            "EID",
+            "EID",
+            "EID"
         )
-    )
-}
 
-    /**
-     * =========================================================
-     * 第三套
-     * =========================================================
-     *
-     * 随机项目全部使用第一套规则。
+        val sasTitle = localized(
+            "SAS Accreditation Number",
+            "SAS 认证编号",
+            "SAS 認證編號",
+            "SAS 認定番号"
+        )
+
+        val lowestVersionTitle = localized(
+            "Lowest Supported Version",
+            "最低支持版本",
+            "最低支援版本",
+            "最低対応バージョン"
+        )
+
+        val freeNonVolatileTitle = localized(
+            "Free Non-volatile Memory",
+            "可用非易失性内存",
+            "可用非揮發性記憶體",
+            "空き不揮発性メモリ"
+        )
+
+        val freeVolatileTitle = localized(
+            "Free Volatile Memory",
+            "可用易失性内存",
+            "可用揮發性記憶體",
+            "空き揮発性メモリ"
+        )
+
+        val defaultSmdpTitle = localized(
+            "Default SM-DP+ Address",
+            "默认 SM-DP+ 地址",
+            "預設 SM-DP+ 位址",
+            "デフォルト SM-DP+ アドレス"
+        )
+
+        val rootSmdsTitle = localized(
+            "Root SM-DS Address",
+            "根 SM-DS 地址",
+            "根 SM-DS 位址",
+            "ルート SM-DS アドレス"
+        )
+
+        val signCiTitle = localized(
+            "EUICC Sign CI",
+            "eUICC 签名 CI",
+            "eUICC 簽章 CI",
+            "eUICC 署名 CI"
+        )
+
+        val verifyCiTitle = localized(
+            "EUICC Verify CI",
+            "eUICC 验证 CI",
+            "eUICC 驗證 CI",
+            "eUICC 検証 CI"
+        )
+
+        val profileVersionTitle = localized(
+            "Profile Version",
+            "配置文件版本",
+            "設定檔版本",
+            "プロファイルバージョン"
+        )
+
+        val globalPlatformTitle = localized(
+            "Global Platform Version",
+            "Global Platform 版本",
+            "Global Platform 版本",
+            "Global Platform バージョン"
+        )
+
+        val firmwareTitle = localized(
+            "Firmware Version",
+            "固件版本",
+            "韌體版本",
+            "ファームウェアバージョン"
+        )
+
+        return listOf(
+
+            Item(
+                eidTitle,
+                randomEid,
+                R.string.toast_eid_copied
+            ),
+
+            Item(
+                sasTitle,
+                randomSas
+            ),
+
+            Item(
+                lowestVersionTitle,
+                "2.5.0"
+            ),
+
+            Item(
+                freeNonVolatileTitle,
+                "${String.format("%,d", randomFreeNonVolatileMemory)} B"
+            ),
+
+            Item(
+                freeVolatileTitle,
+                "${String.format("%,d", randomFreeVolatileMemory)} B"
+            ),
+
+            /*
+             * 必须是真正的空字符串。
+             */
+            Item(
+                defaultSmdpTitle,
+                ""
+            ),
+
+            Item(
+                rootSmdsTitle,
+                "testrootsmds.gsma.com"
+            ),
+
+            Item(
+                signCiTitle,
+                randomCi
+            ),
+
+            Item(
+                verifyCiTitle,
+                randomCi
+            ),
+
+            Item(
+                profileVersionTitle,
+                "2.2.0"
+            ),
+
+            Item(
+                globalPlatformTitle,
+                "2.3.0"
+            ),
+
+            Item(
+                firmwareTitle,
+                "25.4.0"
+            )
+        )
+    }
+
+    /*
+     * ============================
+     * Set 3
+     * ============================
      */
     private fun buildDemoEuiccInfoItemsType3(): List<Item> {
-    val yesText = getString(R.string.euicc_info_yes)
-    val accessModeTitle = getString(R.string.euicc_info_access_mode)
-    val removableTitle = getString(R.string.euicc_info_removable)
-    val eidTitle = getString(R.string.euicc_info_eid)
-    val sgp22Title = getString(R.string.euicc_info_sgp22_version)
-    val sasTitle = getString(R.string.euicc_info_sas_accreditation_number)
-    val nvramHint = getString(R.string.euicc_info_free_nvram_hint)
-    val ciTitle = getString(R.string.euicc_info_ci_type)
-    val ciValue = getString(R.string.euicc_info_ci_gsma_live)
-    val atrTitle = getString(R.string.euicc_info_atr)
 
-    val randomEid = generateRandomEid()
-    val randomSas = generateRandomSas()
-    val randomNvram = generateRandomNvram()
-    val randomAtr = generateRandomAtr()
+        val randomEid = generateRandomEid()
+        val randomSas = generateRandomSas()
+        val randomNvram = generateRandomNvram()
+        val randomAtr = generateRandomAtr()
 
-    return listOf(
-        Item(
-            accessModeTitle,
-            "OpenMobile API (OMAPI)"
-        ),
-
-        Item(
-            removableTitle,
-            yesText
-        ),
-
-        Item(
-            eidTitle,
-            randomEid,
-            R.string.toast_eid_copied
-        ),
-
-        Item(
-            "Manufacturer",
-            "Beijing Watchdata(CN)"
-        ),
-
-        Item(
-            "eUICC Profile version supported",
-            "2.2.0"
-        ),
-
-        Item(
-            sgp22Title,
-            "2.5.0"
-        ),
-
-        Item(
-            "eUICC OS Version",
-            "25.4.0"
-        ),
-
-        Item(
-            "GlobalPlatform Version",
-            "2.3.0"
-        ),
-
-        Item(
-            "Protected Profile Version",
-            "1.0.0"
-        ),
-
-        Item(
-            sasTitle,
-            randomSas
-        ),
-
-        Item(
-            "Free NVRAM (eSIM profile storage)",
-            "$randomNvram $nvramHint"
-        ),
-
-        Item(
-            ciTitle,
-            ciValue
-        ),
-
-        Item(
-            atrTitle,
-            randomAtr,
-            R.string.toast_atr_copied
+        val accessModeTitle = localized(
+            "Access Mode",
+            "访问模式",
+            "存取模式",
+            "アクセスモード"
         )
-    )
-}
 
-    inner class EuiccInfoViewHolder(
-        root: View
-    ) : RecyclerView.ViewHolder(root) {
+        val removableTitle = localized(
+            "Removable",
+            "可移除",
+            "可移除",
+            "取り外し可能"
+        )
+
+        val eidTitle = localized(
+            "EID",
+            "EID",
+            "EID",
+            "EID"
+        )
+
+        val manufacturerTitle = localized(
+            "Manufacturer",
+            "制造商",
+            "製造商",
+            "製造元"
+        )
+
+        val profileVersionSupportedTitle = localized(
+            "eUICC Profile Version Supported",
+            "支持的 eUICC 配置文件版本",
+            "支援的 eUICC 設定檔版本",
+            "対応 eUICC プロファイルバージョン"
+        )
+
+        val sgp22Title = localized(
+            "SGP.22 Version",
+            "SGP.22 版本",
+            "SGP.22 版本",
+            "SGP.22 バージョン"
+        )
+
+        val osVersionTitle = localized(
+            "eUICC OS Version",
+            "eUICC OS 版本",
+            "eUICC OS 版本",
+            "eUICC OS バージョン"
+        )
+
+        val globalPlatformTitle = localized(
+            "GlobalPlatform Version",
+            "GlobalPlatform 版本",
+            "GlobalPlatform 版本",
+            "GlobalPlatform バージョン"
+        )
+
+        val protectedProfileTitle = localized(
+            "Protected Profile Version",
+            "受保护配置文件版本",
+            "受保護設定檔版本",
+            "保護プロファイルバージョン"
+        )
+
+        val sasTitle = localized(
+            "SAS Accreditation Number",
+            "SAS 认证编号",
+            "SAS 認證編號",
+            "SAS 認定番号"
+        )
+
+        val nvramTitle = localized(
+            "Free NVRAM (eSIM profile storage)",
+            "可用 NVRAM（eSIM 配置文件存储空间）",
+            "可用 NVRAM（eSIM 設定檔儲存空間）",
+            "空き NVRAM（eSIM プロファイル保存領域）"
+        )
+
+        val nvramHint = localized(
+            "(for reference only)",
+            "（仅供参考）",
+            "（僅供參考）",
+            "（参考値）"
+        )
+
+        val ciTitle = localized(
+            "Certificate Issuer (CI)",
+            "证书颁发者（CI）",
+            "憑證發行者（CI）",
+            "証明書発行者（CI）"
+        )
+
+        val atrTitle = localized(
+            "Answer To Reset (ATR)",
+            "复位应答（ATR）",
+            "重置應答（ATR）",
+            "Answer To Reset (ATR)"
+        )
+
+        return listOf(
+
+            Item(
+                accessModeTitle,
+                "OpenMobile API (OMAPI)"
+            ),
+
+            Item(
+                removableTitle,
+                localized(
+                    "Yes",
+                    "是",
+                    "是",
+                    "はい"
+                )
+            ),
+
+            Item(
+                eidTitle,
+                randomEid,
+                R.string.toast_eid_copied
+            ),
+
+            Item(
+                manufacturerTitle,
+                "Beijing Watchdata(CN)"
+            ),
+
+            Item(
+                profileVersionSupportedTitle,
+                "2.2.0"
+            ),
+
+            Item(
+                sgp22Title,
+                "2.5.0"
+            ),
+
+            Item(
+                osVersionTitle,
+                "25.4.0"
+            ),
+
+            Item(
+                globalPlatformTitle,
+                "2.3.0"
+            ),
+
+            Item(
+                protectedProfileTitle,
+                "1.0.0"
+            ),
+
+            Item(
+                sasTitle,
+                randomSas
+            ),
+
+            Item(
+                nvramTitle,
+                "$randomNvram $nvramHint"
+            ),
+
+            Item(
+                ciTitle,
+                "GSMA Live CI"
+            ),
+
+            Item(
+                atrTitle,
+                randomAtr,
+                R.string.toast_atr_copied
+            )
+        )
+    }
+
+    inner class EuiccInfoViewHolder(root: View) :
+        RecyclerView.ViewHolder(root) {
 
         private val title: TextView =
             root.findViewById(R.id.euicc_info_title)
@@ -451,7 +681,9 @@ class EuiccInfoActivity : AppCompatActivity() {
 
         init {
             root.setOnClickListener {
-                val toastResId = copiedToastResId ?: return@setOnClickListener
+
+                val toastResId =
+                    copiedToastResId ?: return@setOnClickListener
 
                 val clipboard =
                     root.context.getSystemService(
@@ -474,20 +706,29 @@ class EuiccInfoActivity : AppCompatActivity() {
         }
 
         fun bind(item: Item) {
-            copiedToastResId = item.copiedToastResId
 
-            title.text = item.title
-            content.text = item.content
+            copiedToastResId =
+                item.copiedToastResId
+
+            title.text =
+                item.title
+
+            content.text =
+                item.content
         }
     }
 
     inner class EuiccInfoAdapter :
         RecyclerView.Adapter<EuiccInfoViewHolder>() {
 
-        var euiccInfoItems: List<Item> = emptyList()
+        var euiccInfoItems: List<Item> =
+            emptyList()
+
             @SuppressLint("NotifyDataSetChanged")
             set(value) {
+
                 field = value
+
                 notifyDataSetChanged()
             }
 
@@ -496,26 +737,28 @@ class EuiccInfoActivity : AppCompatActivity() {
             viewType: Int
         ): EuiccInfoViewHolder {
 
-            val root = LayoutInflater
-                .from(parent.context)
-                .inflate(
-                    R.layout.euicc_info_item,
-                    parent,
-                    false
-                )
+            val root =
+                LayoutInflater.from(parent.context)
+                    .inflate(
+                        R.layout.euicc_info_item,
+                        parent,
+                        false
+                    )
 
             return EuiccInfoViewHolder(root)
         }
 
-        override fun getItemCount(): Int {
-            return euiccInfoItems.size
-        }
+        override fun getItemCount(): Int =
+            euiccInfoItems.size
 
         override fun onBindViewHolder(
             holder: EuiccInfoViewHolder,
             position: Int
         ) {
-            holder.bind(euiccInfoItems[position])
+
+            holder.bind(
+                euiccInfoItems[position]
+            )
         }
     }
 }
