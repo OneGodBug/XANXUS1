@@ -40,4 +40,7 @@
     <string name="euicc_info_profile_version">配置文件版本</string>
     <string name="euicc_info_global_platform_version">Global Platform 版本</string>
     <string name="euicc_info_firmware_version">固件版本</string>
+    <string name="euicc_info_yes">是</string>
+    <string name="euicc_info_free_nvram_hint">（仅供参考）</string>
+    
 </resources>
