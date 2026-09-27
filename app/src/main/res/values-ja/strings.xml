@@ -20,4 +20,22 @@
     <!-- Preference -->
     <string name="pref_advanced_telephony_manager_removable">TelephonyManager を常に使用可能にする</string>
     <string name="pref_advanced_telephony_manager_removable_desc">デフォルトでは、非特権モード (EasyEUICC など) での動作と一致させるためにリムーバブル eSIM に対しては OMAPI のみを試行します。ただし、一部デバイスでは正常に動作しない場合があります。このオプションを選択するとリムーバブル eSIM でも TelephonyManager の使用が強制されます。</string>
+
+        <!-- eSIM Info -->
+    <string name="euicc_info_manufacturer">製造元</string>
+    <string name="euicc_info_profile_version_supported">対応 eUICC プロファイルバージョン</string>
+    <string name="euicc_info_os_version">eUICC OS バージョン</string>
+    <string name="euicc_info_globalplatform_version">GlobalPlatform バージョン</string>
+    <string name="euicc_info_protected_profile_version">保護プロファイルバージョン</string>
+
+    <string name="euicc_info_lowest_supported_version">最低対応バージョン</string>
+    <string name="euicc_info_free_nonvolatile_memory">空き不揮発性メモリ</string>
+    <string name="euicc_info_free_volatile_memory">空き揮発性メモリ</string>
+    <string name="euicc_info_default_smdp_address">デフォルト SM-DP+ アドレス</string>
+    <string name="euicc_info_root_smds_address">ルート SM-DS アドレス</string>
+    <string name="euicc_info_euicc_sign_ci">eUICC 署名 CI</string>
+    <string name="euicc_info_euicc_verify_ci">eUICC 検証 CI</string>
+    <string name="euicc_info_profile_version">プロファイルバージョン</string>
+    <string name="euicc_info_global_platform_version">Global Platform バージョン</string>
+    <string name="euicc_info_firmware_version">ファームウェアバージョン</string>
 </resources>
