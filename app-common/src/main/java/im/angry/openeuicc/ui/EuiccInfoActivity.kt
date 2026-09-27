@@ -1,3 +1,4 @@
+```kotlin
 package im.angry.openeuicc.ui
 
 import android.annotation.SuppressLint
@@ -12,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.annotation.StringRes
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,19 +24,10 @@ import im.angry.openeuicc.core.EuiccChannel
 import im.angry.openeuicc.core.EuiccChannelManager
 import im.angry.openeuicc.util.*
 import kotlinx.coroutines.launch
-
-import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 
 class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
-
-    companion object {
-        private val YES_NO = Pair(
-            R.string.euicc_info_yes,
-            R.string.euicc_info_no
-        )
-    }
 
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var infoList: RecyclerView
@@ -46,8 +37,7 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
         EuiccChannel.SecureElementId.DEFAULT
 
     data class Item(
-        @get:StringRes
-        val titleResId: Int,
+        val title: String,
         val content: String?,
         val copiedToastResId: Int? = null,
     )
@@ -141,13 +131,19 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
      * 不读取 APDU。
      * 不读取 EuiccInfo2。
      *
-     * 直接显示模拟数据。
+     * 根据 demo_euicc_info_type 显示三套不同的模拟数据。
      */
     private fun refresh() {
         swipeRefresh.isRefreshing = true
 
         lifecycleScope.launch {
-            val items = buildDemoEuiccInfoItems()
+            val items = when (
+                intent.getIntExtra("demo_euicc_info_type", 1)
+            ) {
+                2 -> buildDemoEuiccInfoItemsType2()
+                3 -> buildDemoEuiccInfoItemsType3()
+                else -> buildDemoEuiccInfoItemsType1()
+            }
 
             (infoList.adapter!! as EuiccInfoAdapter)
                 .euiccInfoItems = items
@@ -157,150 +153,436 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
     }
 
     /**
-     * 虚拟 eUICC 数据。
-     *
-     * 这些数据只用于界面展示，不代表真实设备。
+     * =========================================================
+     * 公共随机数据
+     * =========================================================
      */
-    private fun buildDemoEuiccInfoItems() = buildList {
 
-    // =========================
-    // EID
-    // 前8位随机：
-    // 第1位 3~9
-    // 第2~8位 0~9
-    // 中间17位固定
-    // 最后7位随机
-    // =========================
+    /**
+     * EID：
+     *
+     * 前 8 位随机：
+     * 第 1 位：3~9
+     * 第 2~8 位：0~9
+     *
+     * 中间 17 位固定：
+     * 20250000012500000
+     *
+     * 最后 7 位随机：
+     * 0~9
+     */
+    private fun generateRandomEid(): String {
 
-    val randomEidPrefix = buildString {
-        append(Random.nextInt(3, 10))
+        val randomEidPrefix = buildString {
+            append(Random.nextInt(3, 10))
 
-        repeat(7) {
-            append(Random.nextInt(0, 10))
+            repeat(7) {
+                append(Random.nextInt(0, 10))
+            }
         }
+
+        val fixedEidMiddle = "20250000012500000"
+
+        val randomEidSuffix = buildString {
+            repeat(7) {
+                append(Random.nextInt(0, 10))
+            }
+        }
+
+        return randomEidPrefix +
+                fixedEidMiddle +
+                randomEidSuffix
     }
 
-    val fixedEidMiddle = "20250000012500000"
+    /**
+     * SAS：
+     *
+     * WD-BG-UP- + 4 位随机数字
+     */
+    private fun generateRandomSas(): String =
+        buildString {
+            append("WD-BG-UP-")
 
-    val randomEidSuffix = buildString {
-        repeat(7) {
-            append(Random.nextInt(0, 10))
+            repeat(4) {
+                append(Random.nextInt(0, 10))
+            }
         }
-    }
 
-    val randomEid =
-        randomEidPrefix + fixedEidMiddle + randomEidSuffix
-
-
-    // =========================
-    // SAS
-    // 固定前缀，最后4位随机
-    // =========================
-
-    val randomSas = buildString {
-        append("WD-BG-UP-")
-
-        repeat(4) {
-            append(Random.nextInt(0, 10))
-        }
-    }
-
-
-    // =========================
-    // NVRAM
-    // 随机小于500 KiB
-    // =========================
-
-    val randomNvram =
+    /**
+     * NVRAM：
+     *
+     * 0.01 ~ 499.99 KiB
+     */
+    private fun generateRandomNvram(): String =
         String.format(
             "%.2f KiB",
             Random.nextDouble(0.01, 500.0)
         )
 
+    /**
+     * ATR：
+     *
+     * 44 位随机大写十六进制字符
+     */
+    private fun generateRandomAtr(): String {
 
-    // =========================
-    // ATR
-    // 44位十六进制随机字符
-    // =========================
+        val hexCharacters = "0123456789ABCDEF"
 
-    val hexCharacters = "0123456789ABCDEF"
-
-    val randomAtr = buildString {
-        repeat(44) {
-            append(
-                hexCharacters[
-                    Random.nextInt(hexCharacters.length)
-                ]
-            )
+        return buildString {
+            repeat(44) {
+                append(
+                    hexCharacters[
+                        Random.nextInt(hexCharacters.length)
+                    ]
+                )
+            }
         }
     }
 
+    /**
+     * 16 位随机十六进制 CI
+     */
+    private fun generateRandomCi(): String {
 
-    // =========================
-    // 页面项目
-    // =========================
+        val hexCharacters = "0123456789ABCDEF"
 
-    add(
-        Item(
-            R.string.euicc_info_access_mode,
-            "OpenMobile API (OMAPI)"
+        return buildString {
+            repeat(16) {
+                append(
+                    hexCharacters[
+                        Random.nextInt(hexCharacters.length)
+                    ]
+                )
+            }
+        }
+    }
+
+    /**
+     * =========================================================
+     * 第一套
+     * =========================================================
+     */
+    private fun buildDemoEuiccInfoItemsType1() = buildList {
+
+        val randomEid = generateRandomEid()
+        val randomSas = generateRandomSas()
+        val randomNvram = generateRandomNvram()
+        val randomAtr = generateRandomAtr()
+
+        add(
+            Item(
+                "Access Mode",
+                "OpenMobile API (OMAPI)"
+            )
         )
-    )
 
-    add(
-        Item(
-            R.string.euicc_info_removable,
-            getString(R.string.euicc_info_yes)
+        add(
+            Item(
+                "Removable",
+                getString(R.string.euicc_info_yes)
+            )
         )
-    )
 
-    add(
-        Item(
-            R.string.euicc_info_eid,
-            randomEid,
-            copiedToastResId = R.string.toast_eid_copied
+        add(
+            Item(
+                getString(R.string.euicc_info_eid),
+                randomEid,
+                copiedToastResId = R.string.toast_eid_copied
+            )
         )
-    )
 
-    add(
-        Item(
-            R.string.euicc_info_sgp22_version,
-            "2.5.0"
+        add(
+            Item(
+                getString(R.string.euicc_info_sgp22_version),
+                "2.5.0"
+            )
         )
-    )
 
-    add(
-        Item(
-            R.string.euicc_info_sas_accreditation_number,
-            randomSas
+        add(
+            Item(
+                getString(R.string.euicc_info_sas_accreditation_number),
+                randomSas
+            )
         )
-    )
 
-    add(
-        Item(
-            R.string.euicc_info_free_nvram,
-             randomNvram + " " +
-                getString(R.string.euicc_info_free_nvram_hint
-    )
+        add(
+            Item(
+                getString(R.string.euicc_info_free_nvram),
+                randomNvram + " " +
+                        getString(R.string.euicc_info_free_nvram_hint)
+            )
         )
-    )
 
-    add(
-        Item(
-            R.string.euicc_info_ci_type,
-            getString(R.string.euicc_info_ci_gsma_live)
-            
+        add(
+            Item(
+                getString(R.string.euicc_info_ci_type),
+                getString(R.string.euicc_info_ci_gsma_live)
+            )
         )
-    )
 
-    add(
-        Item(
-            R.string.euicc_info_atr,
-            randomAtr,
-            copiedToastResId = R.string.toast_atr_copied
+        add(
+            Item(
+                getString(R.string.euicc_info_atr),
+                randomAtr,
+                copiedToastResId = R.string.toast_atr_copied
+            )
         )
-    )
-}
+    }
+
+    /**
+     * =========================================================
+     * 第二套
+     * =========================================================
+     */
+    private fun buildDemoEuiccInfoItemsType2() = buildList {
+
+        val randomEid = generateRandomEid()
+
+        val randomSas = generateRandomSas()
+
+        /**
+         * 200,000 ~ 400,000 B
+         */
+        val randomFreeNonVolatileMemory =
+            Random.nextInt(
+                200_000,
+                400_001
+            )
+
+        /**
+         * 约 10,000 B
+         *
+         * 范围：9,000 ~ 11,000 B
+         */
+        val randomFreeVolatileMemory =
+            Random.nextInt(
+                9_000,
+                11_001
+            )
+
+        /**
+         * 两个 EUICC CI：
+         *
+         * 这里只随机一次。
+         * Sign CI 和 Verify CI 必须完全相同。
+         */
+        val randomCi = generateRandomCi()
+
+        add(
+            Item(
+                "EID",
+                randomEid,
+                copiedToastResId = R.string.toast_eid_copied
+            )
+        )
+
+        add(
+            Item(
+                "SAS Accreditation",
+                randomSas
+            )
+        )
+
+        add(
+            Item(
+                "Lowest Supported Version",
+                "2.5.0"
+            )
+        )
+
+        add(
+            Item(
+                "Free Non-volatile Memory",
+                "${
+                    String.format(
+                        "%,d",
+                        randomFreeNonVolatileMemory
+                    )
+                } B"
+            )
+        )
+
+        add(
+            Item(
+                "Free Volatile Memory",
+                "${
+                    String.format(
+                        "%,d",
+                        randomFreeVolatileMemory
+                    )
+                } B"
+            )
+        )
+
+        /**
+         * 注意：
+         * 这里故意使用空字符串。
+         * 不添加空格、不添加未知值。
+         */
+        add(
+            Item(
+                "Default SM-DP+ Address",
+                ""
+            )
+        )
+
+        add(
+            Item(
+                "Root SM-DS Address",
+                "testrootsmds.gsma.com"
+            )
+        )
+
+        add(
+            Item(
+                "EUICC Sign CI",
+                randomCi
+            )
+        )
+
+        add(
+            Item(
+                "EUICC Verify CI",
+                randomCi
+            )
+        )
+
+        add(
+            Item(
+                "Profile Version",
+                "2.2.0"
+            )
+        )
+
+        add(
+            Item(
+                "Global Platform Version",
+                "2.3.0"
+            )
+        )
+
+        add(
+            Item(
+                "Firmware Version",
+                "25.4.0"
+            )
+        )
+    }
+
+    /**
+     * =========================================================
+     * 第三套
+     *
+     * 第三套的随机项目全部使用第一套规则。
+     * =========================================================
+     */
+    private fun buildDemoEuiccInfoItemsType3() = buildList {
+
+        val randomEid = generateRandomEid()
+        val randomSas = generateRandomSas()
+        val randomNvram = generateRandomNvram()
+        val randomAtr = generateRandomAtr()
+
+        add(
+            Item(
+                "Access Mode",
+                "OpenMobile API (OMAPI)"
+            )
+        )
+
+        add(
+            Item(
+                "Removable",
+                getString(R.string.euicc_info_yes)
+            )
+        )
+
+        add(
+            Item(
+                "EID",
+                randomEid,
+                copiedToastResId = R.string.toast_eid_copied
+            )
+        )
+
+        add(
+            Item(
+                "Manufacturer",
+                "Beijing Watchdata(CN)"
+            )
+        )
+
+        add(
+            Item(
+                "eUICC Profile version supported",
+                "2.2.0"
+            )
+        )
+
+        add(
+            Item(
+                "SGP.22 Version",
+                "2.5.0"
+            )
+        )
+
+        add(
+            Item(
+                "eUICC OS Version",
+                "25.4.0"
+            )
+        )
+
+        add(
+            Item(
+                "GlobalPlatform Version",
+                "2.3.0"
+            )
+        )
+
+        add(
+            Item(
+                "Protected Profile Version",
+                "1.0.0"
+            )
+        )
+
+        add(
+            Item(
+                "SAS Accreditation Number",
+                randomSas
+            )
+        )
+
+        add(
+            Item(
+                "Free NVRAM (eSIM profile storage)",
+                randomNvram + " " +
+                        getString(R.string.euicc_info_free_nvram_hint)
+            )
+        )
+
+        add(
+            Item(
+                "Certificate Issuer (CI)",
+                getString(R.string.euicc_info_ci_gsma_live)
+            )
+        )
+
+        add(
+            Item(
+                "Answer To Reset (ATR)",
+                randomAtr,
+                copiedToastResId = R.string.toast_atr_copied
+            )
+        )
+    }
+
+    /**
+     * =========================================================
+     * RecyclerView
+     * =========================================================
+     */
 
     inner class EuiccInfoViewHolder(root: View) : ViewHolder(root) {
 
@@ -341,9 +623,10 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
         }
 
         fun bind(item: Item) {
+
             copiedToastResId = item.copiedToastResId
 
-            title.setText(item.titleResId)
+            title.text = item.title
 
             content.text =
                 item.content
@@ -391,3 +674,4 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
         }
     }
 }
+```
