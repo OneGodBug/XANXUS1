@@ -602,7 +602,7 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
                 val label = title.text.toString()
 
                 val clipboard =
-                    this@EuiccInfoActivity.getSystemService(
+                    root.context.getSystemService(
                         ClipboardManager::class.java
                     )
 
@@ -615,7 +615,7 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
 
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
                     Toast.makeText(
-                        this@EuiccInfoActivity,
+                        root.context,
                         copiedToastResId!!,
                         Toast.LENGTH_SHORT
                     ).show()
@@ -630,9 +630,7 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
 
         title.text = item.title
 
-        content.text =
-            item.content ?: "Unknown"
-                )
+        content.text = item.content ?: "Unknown"
     }
 }
 
