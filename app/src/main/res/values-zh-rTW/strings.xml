@@ -42,5 +42,9 @@
 
     <string name="euicc_info_yes">是</string>
     <string name="euicc_info_free_nvram_hint">（僅供參考）</string>
+    <string name="euicc_info_sas_accreditation_number">SAS 認證編號</string>
+<string name="euicc_info_free_nvram">可用 NVRAM（eSIM 設定檔儲存空間）</string>
+<string name="euicc_info_ci_type">憑證簽發者（CI）</string>
+<string name="euicc_info_ci_gsma_live">GSMA Live CI</string>
     
 </resources>
