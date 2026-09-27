@@ -61,7 +61,7 @@
     <string name="euicc_info_globalplatform_version">GlobalPlatform Version</string>
     <string name="euicc_info_protected_profile_version">Protected Profile Version</string>
 
-    <string name="euicc_info_lowest_supported_version">Lowest Supported Version</string>
+    <string name="euicc_info_lowest_supported_version">英文测试</string>
     <string name="euicc_info_free_nonvolatile_memory">Free Non-volatile Memory</string>
     <string name="euicc_info_free_volatile_memory">Free Volatile Memory</string>
     <string name="euicc_info_default_smdp_address">Default SM-DP+ Address</string>
