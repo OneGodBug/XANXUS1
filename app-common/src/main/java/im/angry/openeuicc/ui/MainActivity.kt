@@ -135,9 +135,31 @@ open class MainActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
                 true
             }
             R.id.euicc_info_main -> {
-                startActivity(Intent(this, EuiccInfoActivity::class.java))
-                true
-            }
+    startActivity(
+        Intent(this, EuiccInfoActivity::class.java).apply {
+            putExtra("demo_euicc_info_type", 1)
+        }
+    )
+    true
+}
+
+R.id.euicc_info_main_2 -> {
+    startActivity(
+        Intent(this, EuiccInfoActivity::class.java).apply {
+            putExtra("demo_euicc_info_type", 2)
+        }
+    )
+    true
+}
+
+R.id.euicc_info_main_3 -> {
+    startActivity(
+        Intent(this, EuiccInfoActivity::class.java).apply {
+            putExtra("demo_euicc_info_type", 3)
+        }
+    )
+    true
+}
 
             R.id.reload -> {
                 refresh()
