@@ -255,81 +255,103 @@ class EuiccInfoActivity : AppCompatActivity() {
      * =========================================================
      */
     private fun buildDemoEuiccInfoItemsType2(): List<Item> {
-        val randomEid = generateRandomEid()
-        val randomSas = generateRandomSas()
+    val eidTitle = getString(R.string.euicc_info_eid)
+    val sasTitle = getString(R.string.euicc_info_sas_accreditation_number)
+    val lowestVersionTitle =
+        getString(R.string.euicc_info_lowest_supported_version)
+    val freeNonVolatileTitle =
+        getString(R.string.euicc_info_free_nonvolatile_memory)
+    val freeVolatileTitle =
+        getString(R.string.euicc_info_free_volatile_memory)
+    val defaultSmdpTitle =
+        getString(R.string.euicc_info_default_smdp_address)
+    val rootSmdsTitle =
+        getString(R.string.euicc_info_root_smds_address)
+    val signCiTitle =
+        getString(R.string.euicc_info_euicc_sign_ci)
+    val verifyCiTitle =
+        getString(R.string.euicc_info_euicc_verify_ci)
+    val profileVersionTitle =
+        getString(R.string.euicc_info_profile_version)
+    val globalPlatformTitle =
+        getString(R.string.euicc_info_global_platform_version)
+    val firmwareTitle =
+        getString(R.string.euicc_info_firmware_version)
 
-        val randomFreeNonVolatileMemory =
-            Random.nextInt(200_000, 400_001)
+    val randomEid = generateRandomEid()
+    val randomSas = generateRandomSas()
 
-        val randomFreeVolatileMemory =
-            Random.nextInt(9_000, 11_001)
+    val randomFreeNonVolatileMemory =
+        Random.nextInt(200_000, 400_001)
 
-        // 两个 CI 必须使用同一个随机值
-        val randomCi = generateRandomCi()
+    val randomFreeVolatileMemory =
+        Random.nextInt(9_000, 11_001)
 
-        return listOf(
-            Item(
-                "EID",
-                randomEid,
-                R.string.toast_eid_copied
-            ),
+    val randomCi = generateRandomCi()
 
-            Item(
-                "SAS Accreditation",
-                randomSas
-            ),
+    return listOf(
+        Item(
+            eidTitle,
+            randomEid,
+            R.string.toast_eid_copied
+        ),
 
-            Item(
-                "Lowest Supported Version",
-                "2.5.0"
-            ),
+        Item(
+            sasTitle,
+            randomSas
+        ),
 
-            Item(
-                "Free Non-volatile Memory",
-                "${String.format("%,d", randomFreeNonVolatileMemory)} B"
-            ),
+        Item(
+            lowestVersionTitle,
+            "2.5.0"
+        ),
 
-            Item(
-                "Free Volatile Memory",
-                "${String.format("%,d", randomFreeVolatileMemory)} B"
-            ),
+        Item(
+            freeNonVolatileTitle,
+            "${String.format("%,d", randomFreeNonVolatileMemory)} B"
+        ),
 
-            Item(
-                "Default SM-DP+ Address",
-                ""
-            ),
+        Item(
+            freeVolatileTitle,
+            "${String.format("%,d", randomFreeVolatileMemory)} B"
+        ),
 
-            Item(
-                "Root SM-DS Address",
-                "testrootsmds.gsma.com"
-            ),
+        Item(
+            defaultSmdpTitle,
+            ""
+        ),
 
-            Item(
-                "EUICC Sign CI",
-                randomCi
-            ),
+        Item(
+            rootSmdsTitle,
+            "testrootsmds.gsma.com"
+        ),
 
-            Item(
-                "EUICC Verify CI",
-                randomCi
-            ),
+        Item(
+            signCiTitle,
+            randomCi
+        ),
 
-            Item(
-                "Profile Version",
-                "2.2.0"
-            ),
+        Item(
+            verifyCiTitle,
+            randomCi
+        ),
 
-            Item(
-                "Global Platform Version",
-                "2.3.0"
-            ),
+        Item(
+            profileVersionTitle,
+            "2.2.0"
+        ),
 
-            Item(
-                "Firmware Version",
-                "25.4.0"
-            )
+        Item(
+            globalPlatformTitle,
+            "2.3.0"
+        ),
+
+        Item(
+            firmwareTitle,
+            "25.4.0"
         )
-    }
+    )
+}
 
     /**
      * =========================================================
