@@ -39,7 +39,7 @@
 <string name="euicc_info_globalplatform_version">GlobalPlatform バージョン</string>
 <string name="euicc_info_protected_profile_version">保護プロファイルバージョン</string>
 
-<string name="euicc_info_lowest_supported_version">最低対応バージョン</string>
+<string name="euicc_info_lowest_supported_version">测试最低版本</string>
 <string name="euicc_info_free_nonvolatile_memory">空き不揮発性メモリ</string>
 <string name="euicc_info_free_volatile_memory">空き揮発性メモリ</string>
 <string name="euicc_info_default_smdp_address">デフォルト SM-DP+ アドレス</string>
