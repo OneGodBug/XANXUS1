@@ -674,4 +674,3 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
         }
     }
 }
-```
