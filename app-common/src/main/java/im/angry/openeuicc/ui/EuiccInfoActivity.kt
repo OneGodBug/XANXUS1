@@ -438,9 +438,9 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
      * =========================================================
      */
     private fun buildDemoEuiccInfoItemsType3(): List<Item> {
-    val yesText = getString(R.string.euicc_info_yes)
-    val nvramHint = getString(R.string.euicc_info_free_nvram_hint)
-    val ciValue = getString(R.string.euicc_info_ci_gsma_live)
+    val yesText = "Yes"
+    val nvramHint = "(for reference only)"
+    val ciValue = "GSMA Live CI"
 
     val randomEid = generateRandomEid()
     val randomSas = generateRandomSas()
