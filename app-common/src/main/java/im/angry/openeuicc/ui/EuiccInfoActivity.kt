@@ -80,7 +80,7 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
 
         setChannelTitle(
             if (logicalSlotId == EuiccChannelManager.USB_CHANNEL_ID) {
-                this@EuiccInfoActivity.applicationContext.applicationContext.getString(R.string.channel_name_format_usb)
+                this@EuiccInfoActivity.getString(R.string.channel_name_format_usb)
             } else {
                 appContainer.customizableTextProvider
                     .formatNonUsbChannelName(logicalSlotId)
@@ -112,7 +112,7 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
 
     private fun setChannelTitle(title: CharSequence) {
         super.setTitle(
-            this@EuiccInfoActivity.applicationContext.applicationContext.getString(
+            this@EuiccInfoActivity.getString(
                 R.string.euicc_info_activity_title,
                 title
             )
@@ -262,72 +262,33 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
      * 第一套
      * =========================================================
      */
-    private fun buildDemoEuiccInfoItemsType1() = buildList {
+    private fun buildDemoEuiccInfoItemsType1(): List<Item> {
+    val yesText = getString(R.string.euicc_info_yes)
+    val eidTitle = getString(R.string.euicc_info_eid)
+    val sgp22Title = getString(R.string.euicc_info_sgp22_version)
+    val sasTitle = getString(R.string.euicc_info_sas_accreditation_number)
+    val nvramTitle = getString(R.string.euicc_info_free_nvram)
+    val nvramHint = getString(R.string.euicc_info_free_nvram_hint)
+    val ciTitle = getString(R.string.euicc_info_ci_type)
+    val ciValue = getString(R.string.euicc_info_ci_gsma_live)
+    val atrTitle = getString(R.string.euicc_info_atr)
 
-        val randomEid = generateRandomEid()
-        val randomSas = generateRandomSas()
-        val randomNvram = generateRandomNvram()
-        val randomAtr = generateRandomAtr()
+    val randomEid = generateRandomEid()
+    val randomSas = generateRandomSas()
+    val randomNvram = generateRandomNvram()
+    val randomAtr = generateRandomAtr()
 
-        add(
-            Item(
-                "Access Mode",
-                "OpenMobile API (OMAPI)"
-            )
-        )
-
-        add(
-            Item(
-                "Removable",
-                this@EuiccInfoActivity.applicationContext.applicationContext.getString(R.string.euicc_info_yes)
-            )
-        )
-
-        add(
-            Item(
-                this@EuiccInfoActivity.applicationContext.applicationContext.getString(R.string.euicc_info_eid),
-                randomEid,
-                copiedToastResId = R.string.toast_eid_copied
-            )
-        )
-
-        add(
-            Item(
-                this@EuiccInfoActivity.applicationContext.applicationContext.getString(R.string.euicc_info_sgp22_version),
-                "2.5.0"
-            )
-        )
-
-        add(
-            Item(
-                this@EuiccInfoActivity.applicationContext.applicationContext.getString(R.string.euicc_info_sas_accreditation_number),
-                randomSas
-            )
-        )
-
-        add(
-            Item(
-                this@EuiccInfoActivity.applicationContext.getString(R.string.euicc_info_free_nvram),
-                randomNvram + " " +
-                        this@EuiccInfoActivity.applicationContext.getString(R.string.euicc_info_free_nvram_hint)
-            )
-        )
-
-        add(
-            Item(
-                this@EuiccInfoActivity.applicationContext.getString(R.string.euicc_info_ci_type),
-                this@EuiccInfoActivity.applicationContext.getString(R.string.euicc_info_ci_gsma_live)
-            )
-        )
-
-        add(
-            Item(
-                this@EuiccInfoActivity.applicationContext.getString(R.string.euicc_info_atr),
-                randomAtr,
-                copiedToastResId = R.string.toast_atr_copied
-            )
-        )
+    return buildList {
+        add(Item("Access Mode", "OpenMobile API (OMAPI)"))
+        add(Item("Removable", yesText))
+        add(Item(eidTitle, randomEid, R.string.toast_eid_copied))
+        add(Item(sgp22Title, "2.5.0"))
+        add(Item(sasTitle, randomSas))
+        add(Item(nvramTitle, "$randomNvram $nvramHint"))
+        add(Item(ciTitle, ciValue))
+        add(Item(atrTitle, randomAtr, R.string.toast_atr_copied))
     }
+}
 
     /**
      * =========================================================
@@ -476,107 +437,37 @@ class EuiccInfoActivity : BaseEuiccAccessActivity(), OpenEuiccContextMarker {
      * 第三套的随机项目全部使用第一套规则。
      * =========================================================
      */
-    private fun buildDemoEuiccInfoItemsType3() = buildList {
+    private fun buildDemoEuiccInfoItemsType3(): List<Item> {
+    val yesText = getString(R.string.euicc_info_yes)
+    val nvramHint = getString(R.string.euicc_info_free_nvram_hint)
+    val ciValue = getString(R.string.euicc_info_ci_gsma_live)
 
-        val randomEid = generateRandomEid()
-        val randomSas = generateRandomSas()
-        val randomNvram = generateRandomNvram()
-        val randomAtr = generateRandomAtr()
+    val randomEid = generateRandomEid()
+    val randomSas = generateRandomSas()
+    val randomNvram = generateRandomNvram()
+    val randomAtr = generateRandomAtr()
 
-        add(
-            Item(
-                "Access Mode",
-                "OpenMobile API (OMAPI)"
-            )
-        )
-
-        add(
-            Item(
-                "Removable",
-                this@EuiccInfoActivity.applicationContext.getString(R.string.euicc_info_yes)
-            )
-        )
-
-        add(
-            Item(
-                "EID",
-                randomEid,
-                copiedToastResId = R.string.toast_eid_copied
-            )
-        )
-
-        add(
-            Item(
-                "Manufacturer",
-                "Beijing Watchdata(CN)"
-            )
-        )
-
-        add(
-            Item(
-                "eUICC Profile version supported",
-                "2.2.0"
-            )
-        )
-
-        add(
-            Item(
-                "SGP.22 Version",
-                "2.5.0"
-            )
-        )
-
-        add(
-            Item(
-                "eUICC OS Version",
-                "25.4.0"
-            )
-        )
-
-        add(
-            Item(
-                "GlobalPlatform Version",
-                "2.3.0"
-            )
-        )
-
-        add(
-            Item(
-                "Protected Profile Version",
-                "1.0.0"
-            )
-        )
-
-        add(
-            Item(
-                "SAS Accreditation Number",
-                randomSas
-            )
-        )
-
+    return buildList {
+        add(Item("Access Mode", "OpenMobile API (OMAPI)"))
+        add(Item("Removable", yesText))
+        add(Item("EID", randomEid, R.string.toast_eid_copied))
+        add(Item("Manufacturer", "Beijing Watchdata(CN)"))
+        add(Item("eUICC Profile version supported", "2.2.0"))
+        add(Item("SGP.22 Version", "2.5.0"))
+        add(Item("eUICC OS Version", "25.4.0"))
+        add(Item("GlobalPlatform Version", "2.3.0"))
+        add(Item("Protected Profile Version", "1.0.0"))
+        add(Item("SAS Accreditation Number", randomSas))
         add(
             Item(
                 "Free NVRAM (eSIM profile storage)",
-                randomNvram + " " +
-                        this@EuiccInfoActivity.applicationContext.getString(R.string.euicc_info_free_nvram_hint)
+                "$randomNvram $nvramHint"
             )
         )
-
-        add(
-            Item(
-                "Certificate Issuer (CI)",
-                this@EuiccInfoActivity.applicationContext.getString(R.string.euicc_info_ci_gsma_live)
-            )
-        )
-
-        add(
-            Item(
-                "Answer To Reset (ATR)",
-                randomAtr,
-                copiedToastResId = R.string.toast_atr_copied
-            )
-        )
+        add(Item("Certificate Issuer (CI)", ciValue))
+        add(Item("Answer To Reset (ATR)", randomAtr, R.string.toast_atr_copied))
     }
+}
 
     /**
      * =========================================================
