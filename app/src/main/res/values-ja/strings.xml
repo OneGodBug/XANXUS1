@@ -38,4 +38,9 @@
     <string name="euicc_info_profile_version">プロファイルバージョン</string>
     <string name="euicc_info_global_platform_version">Global Platform バージョン</string>
     <string name="euicc_info_firmware_version">ファームウェアバージョン</string>
+
+    <string name="euicc_info_access_mode">アクセスモード</string>
+    <string name="euicc_info_removable">取り外し可能</string>
+    <string name="euicc_info_sgp22_version">SGP.22 バージョン</string>
+    
 </resources>
