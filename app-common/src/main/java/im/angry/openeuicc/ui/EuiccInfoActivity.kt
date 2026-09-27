@@ -257,8 +257,7 @@ class EuiccInfoActivity : AppCompatActivity() {
     private fun buildDemoEuiccInfoItemsType2(): List<Item> {
     val eidTitle = getString(R.string.euicc_info_eid)
     val sasTitle = getString(R.string.euicc_info_sas_accreditation_number)
-    val lowestVersionTitle =
-        getString(R.string.euicc_info_lowest_supported_version)
+    val lowestVersionTitle = "【最低対応バージョン测试】"
     val freeNonVolatileTitle =
         getString(R.string.euicc_info_free_nonvolatile_memory)
     val freeVolatileTitle =
