@@ -166,10 +166,6 @@
     <string name="euicc_info_access_mode">Access Mode</string>
     <string name="euicc_info_removable">Removable</string>
 
-    <string name="euicc_info">eSIM Info</string>
-<string name="euicc_info_activity_title">eSIM Info (%s)</string>
-<string name="euicc_info_access_mode">Access Mode</string>
-<string name="euicc_info_removable">Removable</string>
 
 <string name="euicc_info_manufacturer">Manufacturer</string>
 <string name="euicc_info_profile_version_supported">eUICC Profile version supported</string>
