@@ -21,31 +21,35 @@
     <string name="pref_advanced_telephony_manager_removable_desc">在默认情况下，可移除 eSIM 将仅使用 OMAPI。这与非特权模式 (EasyEUICC) 一致。在某些设备上 OMAPI 可能存在问题 — 选择此选项以强制使用 TelephonyManager。</string>
 
         <!-- eSIM Info -->
-    <string name="euicc_info_access_mode">访问模式</string>
-    <string name="euicc_info_removable">可移除</string>
-    <string name="euicc_info_sgp22_version">SGP.22 版本</string>
-    <string name="euicc_info_manufacturer">制造商</string>
-    <string name="euicc_info_profile_version_supported">支持的 eUICC 配置文件版本</string>
-    <string name="euicc_info_os_version">eUICC OS 版本</string>
-    <string name="euicc_info_globalplatform_version">GlobalPlatform 版本</string>
-    <string name="euicc_info_protected_profile_version">受保护配置文件版本</string>
-
-    <string name="euicc_info_lowest_supported_version">最低支持版本</string>
-    <string name="euicc_info_free_nonvolatile_memory">可用非易失性内存</string>
-    <string name="euicc_info_free_volatile_memory">可用易失性内存</string>
-    <string name="euicc_info_default_smdp_address">默认 SM-DP+ 地址</string>
-    <string name="euicc_info_root_smds_address">根 SM-DS 地址</string>
-    <string name="euicc_info_euicc_sign_ci">eUICC 签名 CI</string>
-    <string name="euicc_info_euicc_verify_ci">eUICC 验证 CI</string>
-    <string name="euicc_info_profile_version">配置文件版本</string>
-    <string name="euicc_info_global_platform_version">Global Platform 版本</string>
-    <string name="euicc_info_firmware_version">固件版本</string>
-    <string name="euicc_info_yes">是</string>
-    <string name="euicc_info_free_nvram_hint">（仅供参考）</string>
-
-    <string name="euicc_info_sas_accreditation_number">SAS 认证编号</string>
+    <!-- eSIM Info -->
+<string name="euicc_info_access_mode">访问模式</string>
+<string name="euicc_info_removable">可移除</string>
+<string name="euicc_info_eid" translatable="false">EID</string>
+<string name="euicc_info_sgp22_version">SGP.22 版本</string>
+<string name="euicc_info_sas_accreditation_number">SAS 认证编号</string>
 <string name="euicc_info_free_nvram">可用 NVRAM（eSIM 配置文件存储空间）</string>
 <string name="euicc_info_ci_type">证书颁发者（CI）</string>
 <string name="euicc_info_ci_gsma_live">GSMA Live CI</string>
+<string name="euicc_info_atr" translatable="false">Answer To Reset (ATR)</string>
+
+<string name="euicc_info_manufacturer">制造商</string>
+<string name="euicc_info_profile_version_supported">支持的 eUICC 配置文件版本</string>
+<string name="euicc_info_os_version">eUICC OS 版本</string>
+<string name="euicc_info_globalplatform_version">GlobalPlatform 版本</string>
+<string name="euicc_info_protected_profile_version">受保护配置文件版本</string>
+
+<string name="euicc_info_lowest_supported_version">最低支持版本</string>
+<string name="euicc_info_free_nonvolatile_memory">可用非易失性内存</string>
+<string name="euicc_info_free_volatile_memory">可用易失性内存</string>
+<string name="euicc_info_default_smdp_address">默认 SM-DP+ 地址</string>
+<string name="euicc_info_root_smds_address">根 SM-DS 地址</string>
+<string name="euicc_info_euicc_sign_ci">eUICC 签名 CI</string>
+<string name="euicc_info_euicc_verify_ci">eUICC 验证 CI</string>
+<string name="euicc_info_profile_version">配置文件版本</string>
+<string name="euicc_info_global_platform_version">Global Platform 版本</string>
+<string name="euicc_info_firmware_version">固件版本</string>
+
+<string name="euicc_info_yes">是</string>
+<string name="euicc_info_free_nvram_hint">（仅供参考）</string>
     
 </resources>
